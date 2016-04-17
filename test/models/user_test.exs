@@ -36,11 +36,15 @@ defmodule WordScram.UserTest do
   end
 
   test "user has default 0 game attrs" do
-    changeset = User.changeset(%User{}, @valid_attrs)
+    # changeset = User.changeset(%User{}, @valid_attrs)
 
-    assert changeset.total_wins == 0
-    assert changeset.total_plays == 0
-    assert changeset.top_score == 0
-    assert changeset.avg_score == 0
+    user = %User{}
+    |> User.changeset(@valid_attrs)
+    |> Repo.insert!
+
+    assert user.total_wins == 0
+    assert user.total_plays == 0
+    assert user.top_score == 0
+    assert user.avg_score == 0
   end
 end
