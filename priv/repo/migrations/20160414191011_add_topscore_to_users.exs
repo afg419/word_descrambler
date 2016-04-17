@@ -1,4 +1,4 @@
-defmodule CountServer.Repo.Migrations.AddTopscoreToUsers do
+defmodule WordScram.Repo.Migrations.AddTopscoreToUsers do
   use Ecto.Migration
 
   def change do

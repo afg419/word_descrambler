@@ -1,4 +1,4 @@
-defmodule CountServer.Repo.Migrations.CreateCounter do
+defmodule WordScram.Repo.Migrations.CreateCounter do
   use Ecto.Migration
 
   def change do

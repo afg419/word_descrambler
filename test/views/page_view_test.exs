@@ -1,3 +1,3 @@
-defmodule CountServer.PageViewTest do
-  use CountServer.ConnCase, async: true
+defmodule WordScram.PageViewTest do
+  use WordScram.ConnCase, async: true
 end

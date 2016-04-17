@@ -1,10 +1,10 @@
 require IEx
 
-defmodule CountServer.CounterChannel do
+defmodule WordScram.CounterChannel do
   use Phoenix.Channel
-  alias CountServer.Counter
-  alias CountServer.Repo
-  alias CountServer.User
+  alias WordScram.Counter
+  alias WordScram.Repo
+  alias WordScram.User
 
   def join("the_counter", _message, socket) do
     {:ok, socket}

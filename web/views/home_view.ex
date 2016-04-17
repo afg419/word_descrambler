@@ -1,3 +1,3 @@
-defmodule CountServer.HomeView do
-  use CountServer.Web, :view
+defmodule WordScram.HomeView do
+  use WordScram.Web, :view
 end

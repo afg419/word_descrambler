@@ -1,12 +1,12 @@
-defmodule CountServer.Web do
+defmodule WordScram.Web do
   @moduledoc """
   A module that keeps using definitions for controllers,
   views and so on.
 
   This can be used in your application as:
 
-      use CountServer.Web, :controller
-      use CountServer.Web, :view
+      use WordScram.Web, :controller
+      use WordScram.Web, :view
 
   The definitions below will be executed for every view,
   controller, etc, so keep them short and clean, focused
@@ -30,12 +30,12 @@ defmodule CountServer.Web do
     quote do
       use Phoenix.Controller
 
-      alias CountServer.Repo
+      alias WordScram.Repo
       import Ecto
       import Ecto.Query, only: [from: 1, from: 2]
 
-      import CountServer.Router.Helpers
-      import CountServer.Gettext
+      import WordScram.Router.Helpers
+      import WordScram.Gettext
     end
   end
 
@@ -49,9 +49,9 @@ defmodule CountServer.Web do
       # Use all HTML functionality (forms, tags, etc)
       use Phoenix.HTML
 
-      import CountServer.Router.Helpers
-      import CountServer.ErrorHelpers
-      import CountServer.Gettext
+      import WordScram.Router.Helpers
+      import WordScram.ErrorHelpers
+      import WordScram.Gettext
     end
   end
 
@@ -65,10 +65,10 @@ defmodule CountServer.Web do
     quote do
       use Phoenix.Channel
 
-      alias CountServer.Repo
+      alias WordScram.Repo
       import Ecto
       import Ecto.Query, only: [from: 1, from: 2]
-      import CountServer.Gettext
+      import WordScram.Gettext
     end
   end
 

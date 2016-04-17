@@ -1,3 +1,3 @@
-defmodule CountServer.CounterView do
-  use CountServer.Web, :view
+defmodule WordScram.CounterView do
+  use WordScram.Web, :view
 end

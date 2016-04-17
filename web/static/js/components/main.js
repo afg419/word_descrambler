@@ -1,28 +1,19 @@
-import React from "react"
-import ReactDOM from "react-dom"
-import updater from "../updater"
-import Authorize from "./authorize"
-import Game from "./game"
+import React from "react";
+import ReactDOM from "react-dom";
+import updater from "../updater";
+import Authorize from "./authorize";
+import Profile from "./profile";
+import Header from "./header";
+import Footer from "./footer";
+import Game from "./game";
 
 var Main = React.createClass({
   getInitialState(){
     return {
-            username: "",
-            loggedIn: false,
-             counter: parseInt($("#main")[0].className),
-    updaterCloseSend: updater(this.renderIncrement, ""),
-            topScore: 0,
+            user: {},
+            pageView: 0,
+            message: "HEY",
            };
-  },
-
-  login(username, topscore){
-    this.setState({ loggedIn: true, username: username, updaterCloseSend: updater(this.renderIncrement, username), topScore: 0 + topscore});
-    console.log("LOGGED $#%@^ IN");
-  },
-
-  logout(){
-    this.setState({ loggedIn: false, username: ""});
-    console.log("LOGGED #$%#$ OUT");
   },
 
   sendReset(){
@@ -32,26 +23,33 @@ var Main = React.createClass({
     console.log("supposedly sent");
   },
 
-  renderIncrement(reply){
-    if(reply){
-      this.setState({counter: reply});
-    }
+  setMainState(info){
+    this.setState(info);
   },
 
   getUserInfo(){
     $.ajax({
       url: '/api/v1/sessions',
       type: 'GET',
-      success: (reply) => {
-        if(reply){
-          debugger;
-          this.login(reply.username, reply.top_score);
-          this.setState({message: "Logged in as "+ reply.username});
+      success: (user) => {
+        if(user){
+          this.setMainState({user: user, message: user.username, pageView: 1});
         } else
           this.setState({message: ""});
         }
       }
     );
+  },
+
+  currentPage(){
+    switch(this.state.pageView) {
+    case 0:
+      return <Authorize setMainState={this.setMainState}/>;
+    case 1:
+      return <Profile user={this.state.user} setMainState={this.setMainState}/>;
+    case 2:
+      return <Game user={this.state.user} setMainState={this.setMainState} sendReset={this.sendReset}/>;
+    }
   },
 
   componentDidMount(){
@@ -61,14 +59,12 @@ var Main = React.createClass({
   render() {
     return (
       <div>
-        <h1>Ready to furiously click some buttons?!</h1>
-        <h3>Logged in as: {this.state.username}</h3>
-        <h3>Top Score: {this.state.topScore}</h3>
-        <Game getUserInfo={this.getUserInfo} counter={this.state.counter} loggedIn={this.state.loggedIn} sendReset={this.sendReset}/>
-        <Authorize loggedIn={this.state.loggedIn} login={this.login} logout={this.logout}/>
+        <Header />
+        {this.currentPage()}
+        <Footer message={this.state.message}/>
       </div>
     );
   }
 });
 
-module.exports = Main
+module.exports = Main;

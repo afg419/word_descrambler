@@ -1,2 +1,2 @@
-<div id="main" value="<%= @counter.main %>" class="<%= @counter.main %>">
+<div id="main">
 </div>

@@ -7,12 +7,12 @@ use Mix.Config
 
 config :hound, driver: "phantomjs"
 # Configures the endpoint
-config :count_server, CountServer.Endpoint,
+config :word_scram, WordScram.Endpoint,
   url: [host: "localhost"],
   root: Path.dirname(__DIR__),
   secret_key_base: "klUZJWCr6K5g6TZyyoxTWTZwaaPiYImzc4/QdVdlek+O07QExlXqDphYyWfb6WAB",
   render_errors: [accepts: ~w(html json)],
-  pubsub: [name: CountServer.PubSub,
+  pubsub: [name: WordScram.PubSub,
            adapter: Phoenix.PubSub.PG2]
 
 # Configures Elixir's Logger

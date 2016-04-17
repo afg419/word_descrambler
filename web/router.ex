@@ -1,5 +1,5 @@
-defmodule CountServer.Router do
-  use CountServer.Web, :router
+defmodule WordScram.Router do
+  use WordScram.Web, :router
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -13,13 +13,13 @@ defmodule CountServer.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", CountServer do
+  scope "/", WordScram do
     pipe_through :browser
 
     get "/", HomeController, :index
   end
 
-  scope "/api/v1", CountServer do
+  scope "/api/v1", WordScram do
     pipe_through :api
     delete "/sessions", SessionController, :destroy
     resources "/sessions", SessionController, only: [:new, :create, :index]

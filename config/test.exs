@@ -2,7 +2,7 @@ use Mix.Config
 
 # We don't run a server during test. If one is required,
 # you can enable the server option below.
-config :count_server, CountServer.Endpoint,
+config :word_scram, WordScram.Endpoint,
   http: [port: 4001],
   server: true
 
@@ -10,7 +10,7 @@ config :count_server, CountServer.Endpoint,
 config :logger, level: :warn
 
 # Configure your database
-config :count_server, CountServer.Repo,
+config :word_scram, WordScram.Repo,
   adapter: Ecto.Adapters.Postgres,
   username: "aarongreenspan",
   password: "aarongreenspan",

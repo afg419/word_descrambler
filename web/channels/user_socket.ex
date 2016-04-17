@@ -1,7 +1,7 @@
-defmodule CountServer.UserSocket do
+defmodule WordScram.UserSocket do
   use Phoenix.Socket
 
-  channel "the_counter", CountServer.CounterChannel
+  channel "the_counter", WordScram.CounterChannel
 
   transport :websocket, Phoenix.Transports.WebSocket
 

@@ -1,4 +1,4 @@
-# CountServer
+# WordScram
 
 To start your Phoenix app:
 

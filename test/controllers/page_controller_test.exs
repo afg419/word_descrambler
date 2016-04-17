@@ -1,5 +1,5 @@
-defmodule CountServer.PageControllerTest do
-  use CountServer.ConnCase
+defmodule WordScram.PageControllerTest do
+  use WordScram.ConnCase
 
   test "GET /", %{conn: conn} do
     conn = get conn, "/"

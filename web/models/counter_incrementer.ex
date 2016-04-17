@@ -1,6 +1,6 @@
-defmodule CountServer.CounterIncrementer do
-  alias CountServer.Repo
-  alias CountServer.Counter
+defmodule WordScram.CounterIncrementer do
+  alias WordScram.Repo
+  alias WordScram.Counter
   def start_link do
     pid = spawn_link __MODULE__, :loop, []
     {:ok, pid}
@@ -12,7 +12,7 @@ defmodule CountServer.CounterIncrementer do
     Counter.changeset(counter, %{main: new_value})
     |> Repo.update
 
-    CountServer.Endpoint.broadcast! "the_counter", "timer", %{body: new_value}
+    WordScram.Endpoint.broadcast! "the_counter", "timer", %{body: new_value}
 
     IO.puts new_value
 
