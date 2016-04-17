@@ -7,6 +7,7 @@ import Game from "./game";
 var Main = React.createClass({
   getInitialState(){
     return {
+            pageView: 0,
             username: "",
             loggedIn: false,
              counter: parseInt($("#main")[0].className),
@@ -54,6 +55,15 @@ var Main = React.createClass({
     );
   },
 
+  currentPage(){
+    switch(this.state.pageView) {
+    case 0:
+      return <Authorize loggedIn={this.state.loggedIn} login={this.login} logout={this.logout}/>;
+    case 1:
+      return <Game getUserInfo={this.getUserInfo} counter={this.state.counter} loggedIn={this.state.loggedIn} sendReset={this.sendReset}/>;
+    }
+  },
+
   componentDidMount(){
     this.getUserInfo();
   },
@@ -62,10 +72,7 @@ var Main = React.createClass({
     return (
       <div>
         <h1>Ready to furiously click some buttons?!</h1>
-        <h3>Logged in as: {this.state.username}</h3>
-        <h3>Top Score: {this.state.topScore}</h3>
-        <Game getUserInfo={this.getUserInfo} counter={this.state.counter} loggedIn={this.state.loggedIn} sendReset={this.sendReset}/>
-        <Authorize loggedIn={this.state.loggedIn} login={this.login} logout={this.logout}/>
+        {this.currentPage()}
       </div>
     );
   }
