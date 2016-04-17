@@ -1,11 +1,11 @@
-defmodule CountServer.Gettext do
+defmodule WordScram.Gettext do
   @moduledoc """
   A module providing Internationalization with a gettext-based API.
 
   By using [Gettext](http://hexdocs.pm/gettext),
   your module gains a set of macros for translations, for example:
 
-      import CountServer.Gettext
+      import WordScram.Gettext
 
       # Simple translation
       gettext "Here is the string to translate"
@@ -20,5 +20,5 @@ defmodule CountServer.Gettext do
 
   See the [Gettext Docs](http://hexdocs.pm/gettext) for detailed usage.
   """
-  use Gettext, otp_app: :count_server
+  use Gettext, otp_app: :word_scram
 end

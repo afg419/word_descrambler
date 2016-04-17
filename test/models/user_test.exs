@@ -1,8 +1,8 @@
-defmodule CountServer.UserTest do
-  use CountServer.ModelCase
+defmodule WordScram.UserTest do
+  use WordScram.ModelCase
 
-  alias CountServer.User
-  alias CountServer.Repo
+  alias WordScram.User
+  alias WordScram.Repo
 
   @valid_attrs %{username: "axeface", password: "password"}
   @invalid_attrs %{}

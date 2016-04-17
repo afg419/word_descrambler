@@ -1,4 +1,4 @@
-defmodule CountServer.ErrorHelpers do
+defmodule WordScram.ErrorHelpers do
   @moduledoc """
   Conveniences for translating and building error messages.
   """
@@ -26,10 +26,10 @@ defmodule CountServer.ErrorHelpers do
     #
     #     dngettext "errors", "1 file", "%{count} files", count
     #
-    Gettext.dngettext(CountServer.Gettext, "errors", msg, msg, opts[:count], opts)
+    Gettext.dngettext(WordScram.Gettext, "errors", msg, msg, opts[:count], opts)
   end
 
   def translate_error(msg) do
-    Gettext.dgettext(CountServer.Gettext, "errors", msg)
+    Gettext.dgettext(WordScram.Gettext, "errors", msg)
   end
 end

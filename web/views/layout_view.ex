@@ -1,3 +1,3 @@
-defmodule CountServer.LayoutView do
-  use CountServer.Web, :view
+defmodule WordScram.LayoutView do
+  use WordScram.Web, :view
 end

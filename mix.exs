@@ -1,8 +1,8 @@
-defmodule CountServer.Mixfile do
+defmodule WordScram.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :count_server,
+    [app: :word_scram,
      version: "0.0.1",
      elixir: "~> 1.0",
      elixirc_paths: elixirc_paths(Mix.env),
@@ -15,7 +15,7 @@ defmodule CountServer.Mixfile do
 
   def application do
     [
-      mod: {CountServer, []},
+      mod: {WordScram, []},
       applications:
        [
           :phoenix,

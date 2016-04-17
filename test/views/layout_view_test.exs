@@ -1,3 +1,3 @@
-defmodule CountServer.LayoutViewTest do
-  use CountServer.ConnCase, async: true
+defmodule WordScram.LayoutViewTest do
+  use WordScram.ConnCase, async: true
 end

@@ -1,5 +1,5 @@
-defmodule CountServer.SessionView do
-  use CountServer.Web, :view
+defmodule WordScram.SessionView do
+  use WordScram.Web, :view
   # def render("index.json", %{reply: reply}) do
   #   reply
   # end

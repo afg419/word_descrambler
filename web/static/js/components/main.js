@@ -2,6 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom";
 import updater from "../updater";
 import Authorize from "./authorize";
+import Profile from "./profile";
+import Header from "./header";
+import Footer from "./footer";
 import Game from "./game";
 
 var Main = React.createClass({
@@ -9,22 +12,8 @@ var Main = React.createClass({
     return {
             user: {},
             pageView: 0,
-            username: "",
-            loggedIn: false,
-             counter: parseInt($("#main")[0].className),
-    updaterCloseSend: updater(this.renderIncrement, ""),
-            topScore: 0,
+            message: "HEY",
            };
-  },
-
-  login(username, topscore){
-    this.setState({ loggedIn: true, username: username, updaterCloseSend: updater(this.renderIncrement, username), topScore: 0 + topscore});
-    console.log("LOGGED $#%@^ IN");
-  },
-
-  logout(){
-    this.setState({ loggedIn: false, username: ""});
-    console.log("LOGGED #$%#$ OUT");
   },
 
   sendReset(){
@@ -32,12 +21,6 @@ var Main = React.createClass({
     this.state.updaterCloseSend.send();
     this.getUserInfo();
     console.log("supposedly sent");
-  },
-
-  renderIncrement(reply){
-    if(reply){
-      this.setState({counter: reply});
-    }
   },
 
   setMainState(info){
@@ -48,10 +31,9 @@ var Main = React.createClass({
     $.ajax({
       url: '/api/v1/sessions',
       type: 'GET',
-      success: (reply) => {
-        if(reply){
-          this.login(reply.username, reply.top_score);
-          this.setState({message: "Logged in as "+ reply.username});
+      success: (user) => {
+        if(user){
+          this.setMainState({user: user, message: user.username, pageView: 1});
         } else
           this.setState({message: ""});
         }
@@ -64,7 +46,9 @@ var Main = React.createClass({
     case 0:
       return <Authorize setMainState={this.setMainState}/>;
     case 1:
-      return <Game getUserInfo={this.getUserInfo} counter={this.state.counter} loggedIn={this.state.loggedIn} sendReset={this.sendReset}/>;
+      return <Profile user={this.state.user} setMainState={this.setMainState}/>;
+    case 2:
+      return <Game user={this.state.user} setMainState={this.setMainState} sendReset={this.sendReset}/>;
     }
   },
 
@@ -75,8 +59,9 @@ var Main = React.createClass({
   render() {
     return (
       <div>
-        <h1>Ready to furiously click some buttons?!</h1>
+        <Header />
         {this.currentPage()}
+        <Footer message={this.state.message}/>
       </div>
     );
   }

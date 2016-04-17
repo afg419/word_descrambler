@@ -1,5 +1,5 @@
-defmodule CountServer.ErrorView do
-  use CountServer.Web, :view
+defmodule WordScram.ErrorView do
+  use WordScram.Web, :view
 
   def render("404.html", _assigns) do
     "Page not found"

@@ -1,11 +1,9 @@
-require IEx
+defmodule WordScram.SessionController do
+  use WordScram.Web, :controller
 
-defmodule CountServer.SessionController do
-  use CountServer.Web, :controller
-
-  alias CountServer.Repo
-  alias CountServer.User
-  alias CountServer.AppState
+  alias WordScram.Repo
+  alias WordScram.User
+  alias WordScram.AppState
 
   alias Comeonin.Bcrypt
 
@@ -63,9 +61,8 @@ defmodule CountServer.SessionController do
   end
 
   defp login(user, fetched_conn) do
-    json_user = User.to_json(user)
     fetched_conn
     |> put_session(:user_id, user.id)
-    |> render(reply: json_user)
+    |> render(reply: User.to_json(user))
   end
 end

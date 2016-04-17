@@ -1,7 +1,7 @@
 require IEx
 
-defmodule CountServer.HomePageTest do
-  use CountServer.ConnCase
+defmodule WordScram.HomePageTest do
+  use WordScram.ConnCase
 
   use Hound.Helpers
 

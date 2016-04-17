@@ -1,5 +1,5 @@
-defmodule CountServer.User do
-  use CountServer.Web, :model
+defmodule WordScram.User do
+  use WordScram.Web, :model
 
   schema "users" do
     field :username, :string

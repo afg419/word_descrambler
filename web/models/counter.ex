@@ -1,5 +1,5 @@
-defmodule CountServer.Counter do
-  use CountServer.Web, :model
+defmodule WordScram.Counter do
+  use WordScram.Web, :model
 
   schema "counters" do
     field :main, :integer, default: 0

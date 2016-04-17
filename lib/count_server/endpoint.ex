@@ -1,14 +1,14 @@
-defmodule CountServer.Endpoint do
-  use Phoenix.Endpoint, otp_app: :count_server
+defmodule WordScram.Endpoint do
+  use Phoenix.Endpoint, otp_app: :word_scram
 
-  socket "/socket", CountServer.UserSocket
+  socket "/socket", WordScram.UserSocket
 
   # Serve at "/" the static files from "priv/static" directory.
   #
   # You should set gzip to true if you are running phoenix.digest
   # when deploying your static files in production.
   plug Plug.Static,
-    at: "/", from: :count_server, gzip: false,
+    at: "/", from: :word_scram, gzip: false,
     only: ~w(css fonts images js favicon.ico robots.txt)
 
   # Code reloading can be explicitly enabled under the
@@ -35,5 +35,5 @@ defmodule CountServer.Endpoint do
     key: "_count_server_key",
     signing_salt: "IFeM3jEl"
 
-  plug CountServer.Router
+  plug WordScram.Router
 end

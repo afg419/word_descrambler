@@ -1,7 +1,7 @@
-defmodule CountServer.CounterTest do
-  use CountServer.ModelCase
+defmodule WordScram.CounterTest do
+  use WordScram.ModelCase
 
-  alias CountServer.Counter
+  alias WordScram.Counter
 
   @valid_attrs %{main: 42}
   @invalid_attrs %{}
