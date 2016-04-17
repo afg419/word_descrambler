@@ -1,8 +1,8 @@
-import React from "react"
-import ReactDOM from "react-dom"
-import updater from "../updater"
-import Authorize from "./authorize"
-import Game from "./game"
+import React from "react";
+import ReactDOM from "react-dom";
+import updater from "../updater";
+import Authorize from "./authorize";
+import Game from "./game";
 
 var Main = React.createClass({
   getInitialState(){
@@ -71,4 +71,4 @@ var Main = React.createClass({
   }
 });
 
-module.exports = Main
+module.exports = Main;

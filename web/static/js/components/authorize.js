@@ -1,5 +1,5 @@
-import React from "react"
-import ReactDOM from "react-dom"
+import React from "react";
+import ReactDOM from "react-dom";
 
 var Authorize = React.createClass({
   getInitialState(){
@@ -87,4 +87,4 @@ var Authorize = React.createClass({
   }
 });
 
-module.exports = Authorize
+module.exports = Authorize;

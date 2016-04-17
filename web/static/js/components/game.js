@@ -1,5 +1,5 @@
-import React from "react"
-import ReactDOM from "react-dom"
+import React from "react";
+import ReactDOM from "react-dom";
 
 var Game = React.createClass({
   getInitialState(){
@@ -11,11 +11,11 @@ var Game = React.createClass({
                 <button type="button" className="btn-big-red" onClick={this.props.sendReset}>RESET</button>
                 <h3>{this.props.counter}</h3>
               </div>
-            )
+            );
   },
 
   render(){
-    var renderable = <div></div>
+    var renderable = <div></div>;
     if(this.props.loggedIn){
       renderable = this.clickIt();
     }
@@ -26,4 +26,4 @@ var Game = React.createClass({
 
 });
 
-module.exports = Game
+module.exports = Game;
