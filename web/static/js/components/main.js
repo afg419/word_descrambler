@@ -13,9 +13,17 @@ var Main = React.createClass({
             user: {},
             pageView: 0,
             message: "HEY",
-            counter: {}
+            counter: {},
+            updaterCloseSend: updater(this.renderIncrement, ""),
+
            };
   },
+
+  renderIncrement(reply){
+    this.setState({counter: reply});
+    console.log(reply);
+  },
+
 
   // sendReset(){
   //   console.log("nice clicking ");
@@ -49,7 +57,7 @@ var Main = React.createClass({
     case 1:
       return <Profile user={this.state.user} setMainState={this.setMainState}/>;
     case 2:
-      return <GameCycle counter={this.state.counter} user={this.state.user} setMainState={this.setMainState} sendReset={this.sendReset}/>;
+      return <GameCycle counter={this.state.counter} user={this.state.user} setMainState={this.setMainState} />;
     }
   },
 

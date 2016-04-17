@@ -5,39 +5,24 @@ import Game from "./game";
 import Lobby from "./lobby";
 
 var GameCycle = React.createClass({
-  getInitialState(){
-    return {
-            updaterCloseSend: updater(this.renderIncrement, ""),
-            counter: {},
-           };
-  },
-
-  renderIncrement(reply){
-    this.setState({counter: reply});
-    console.log(reply);
-  },
-
   inGame(){
-    return this.state.counter.active_game;
+    return this.props.counter.active_game;
   },
 
   gameOrLobby(){
     if (this.inGame()){
-      return (<Game counter={this.state.counter}
-                                user={this.state.user}
-                        setMainState={this.setMainState}
-                           sendReset={this.sendReset}/>);
+      return (<Game          counter={this.props.counter}
+                                user={this.props.user}
+                        setMainState={this.setMainState} />);
     } else {
-      return (<Lobby counter={this.state.counter}
-                                user={this.state.user}
-                        setMainState={this.setMainState}
-                           sendReset={this.sendReset}/>);
+      return (<Lobby         counter={this.props.counter}
+                                user={this.props.user}
+                        setMainState={this.setMainState} />);
     }
   },
 
   quitGame(){
     this.props.setMainState({pageView: 1});
-    this.state.updaterCloseSend.close();
   },
 
   render(){
