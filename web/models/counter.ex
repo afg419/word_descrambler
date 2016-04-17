@@ -1,5 +1,3 @@
-require IEx
-
 defmodule WordScram.Counter do
   use WordScram.Web, :model
   alias WordScram.Repo

@@ -6,6 +6,7 @@ import Profile from "./profile";
 import Header from "./header";
 import Footer from "./footer";
 import Game from "./game";
+import Lobby from "./lobby";
 
 var Main = React.createClass({
   getInitialState(){
@@ -13,6 +14,7 @@ var Main = React.createClass({
             user: {},
             pageView: 0,
             message: "HEY",
+            counter: {}
            };
   },
 
@@ -48,7 +50,9 @@ var Main = React.createClass({
     case 1:
       return <Profile user={this.state.user} setMainState={this.setMainState}/>;
     case 2:
-      return <Game user={this.state.user} setMainState={this.setMainState} sendReset={this.sendReset}/>;
+      return <Game counter={this.state.counter} user={this.state.user} setMainState={this.setMainState} sendReset={this.sendReset}/>;
+    case 3:
+      return <Lobby counter={this.state.counter} user={this.state.user} setMainState={this.setMainState} sendReset={this.sendReset}/>;
     }
   },
 
