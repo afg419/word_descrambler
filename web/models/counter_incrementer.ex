@@ -1,6 +1,7 @@
 defmodule WordScram.CounterIncrementer do
   alias WordScram.Repo
   alias WordScram.Counter
+
   def start_link do
     pid = spawn_link __MODULE__, :loop, []
     {:ok, pid}
@@ -8,9 +9,7 @@ defmodule WordScram.CounterIncrementer do
 
   def loop do
     counter = Repo.get!(Counter, 1)
-    new_value = counter.main + 1
-    Counter.changeset(counter, %{main: new_value})
-    |> Repo.update
+    new_value = Counter.update(counter)
 
     WordScram.Endpoint.broadcast! "the_counter", "timer", %{body: new_value}
 
