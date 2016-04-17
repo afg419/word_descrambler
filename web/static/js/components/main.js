@@ -23,16 +23,12 @@ var Main = React.createClass({
     console.log(reply);
   },
 
-
-  // sendReset(){
-  //   console.log("nice clicking ");
-  //   this.state.updaterCloseSend.send();
-  //   this.getUserInfo();
-  //   console.log("supposedly sent");
-  // },
-
   setMainState(info){
     this.setState(info);
+  },
+
+  componentDidMount(){
+    this.getUserInfo();
   },
 
   getUserInfo(){
@@ -60,9 +56,6 @@ var Main = React.createClass({
     }
   },
 
-  componentDidMount(){
-    this.getUserInfo();
-  },
 
   render() {
     return (

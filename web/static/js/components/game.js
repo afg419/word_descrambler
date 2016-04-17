@@ -3,16 +3,17 @@ import ReactDOM from "react-dom";
 import updater from "../updater";
 
 var Game = React.createClass({
-  getInitialState(){
-    return {
-           };
+  letters(){
+    return (this.props.counter.letters.map( (letter, i) => {
+      return <span key={i} style={{marginLeft: "1.05em"}}>{letter}</span>;
+    }));
   },
 
   render(){
     return(
       <div className="center">
         <div className="container">
-          <div className="container letter-box"></div>
+          <div className="container letter-box">{this.letters()}</div>
           <input className="word-input" placeholder=" Type words using the letters above"/>
           <div className="vertical-spacer"></div>
           <div className="game-state">
@@ -20,7 +21,6 @@ var Game = React.createClass({
           <div className="container word-results"></div>
           </div>
         </div>
-        {/*<button onClick={this.quitGame}>Quit</button>*/}
       </div>
     );
   }

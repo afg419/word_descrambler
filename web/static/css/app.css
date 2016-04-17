@@ -121,9 +121,9 @@ form.link, form.button {
 
 .letter-box{
   width: 100%;
-  font-size: large;
+  font-size: 41px;
   border-radius: 20px;
-  min-height: 10em;
+  min-height: 1.6em;
   background-color: #C2C9EC;
   margin-bottom: 2em;
 }
