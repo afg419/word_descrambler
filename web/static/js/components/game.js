@@ -5,23 +5,7 @@ import updater from "../updater";
 var Game = React.createClass({
   getInitialState(){
     return {
-            updaterCloseSend: updater(this.renderIncrement, ""),
            };
-  },
-
-  renderIncrement(reply){
-    if(reply){
-      if(reply.active_game){
-        this.props.setMainState({counter: reply});
-      } else {
-        this.props.setMainState({counter: reply, pageView: 3});
-      }
-      console.log(reply);
-    }
-  },
-
-  quitGame(){
-    this.props.setMainState({pageView: 1});
   },
 
   render(){
@@ -36,7 +20,7 @@ var Game = React.createClass({
           <div className="container word-results"></div>
           </div>
         </div>
-        <button onClick={this.quitGame}>Quit</button>
+        {/*<button onClick={this.quitGame}>Quit</button>*/}
       </div>
     );
   }

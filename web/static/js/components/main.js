@@ -5,8 +5,7 @@ import Authorize from "./authorize";
 import Profile from "./profile";
 import Header from "./header";
 import Footer from "./footer";
-import Game from "./game";
-import Lobby from "./lobby";
+import GameCycle from "./game-cycle";
 
 var Main = React.createClass({
   getInitialState(){
@@ -18,12 +17,12 @@ var Main = React.createClass({
            };
   },
 
-  sendReset(){
-    console.log("nice clicking ");
-    this.state.updaterCloseSend.send();
-    this.getUserInfo();
-    console.log("supposedly sent");
-  },
+  // sendReset(){
+  //   console.log("nice clicking ");
+  //   this.state.updaterCloseSend.send();
+  //   this.getUserInfo();
+  //   console.log("supposedly sent");
+  // },
 
   setMainState(info){
     this.setState(info);
@@ -50,9 +49,7 @@ var Main = React.createClass({
     case 1:
       return <Profile user={this.state.user} setMainState={this.setMainState}/>;
     case 2:
-      return <Game counter={this.state.counter} user={this.state.user} setMainState={this.setMainState} sendReset={this.sendReset}/>;
-    case 3:
-      return <Lobby counter={this.state.counter} user={this.state.user} setMainState={this.setMainState} sendReset={this.sendReset}/>;
+      return <GameCycle counter={this.state.counter} user={this.state.user} setMainState={this.setMainState} sendReset={this.sendReset}/>;
     }
   },
 
