@@ -19,6 +19,19 @@ defmodule WordScram.Counter do
     |> cast(params, @required_fields, @optional_fields)
   end
 
+  def update(counter) do
+    if counter.main > timer(counter) do
+      game_active = !counter.active_game
+      WordScram.Counter.changeset(counter, %{main: 1, active_game: game_active})
+      |> Repo.update
+    else
+      increment(counter)
+    end
+  end
+
+  def to_json(counter) do
+    %{main: counter.main, active_game: counter.active_game}
+  end
 
   def increment(counter) do
     set(counter, counter.main + 1)
@@ -27,7 +40,6 @@ defmodule WordScram.Counter do
   def set(counter, value) do
     WordScram.Counter.changeset(counter, %{main: value})
     |> Repo.update
-    value
   end
 
   def timer(counter) do
@@ -37,14 +49,4 @@ defmodule WordScram.Counter do
     end
   end
 
-  def update(counter) do
-    if counter.main > timer(counter) do
-      game_active = !counter.active_game
-      WordScram.Counter.changeset(counter, %{main: 1, active_game: game_active})
-      |> Repo.update
-      1
-    else
-      increment(counter)
-    end
-  end
 end

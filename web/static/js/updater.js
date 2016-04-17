@@ -9,7 +9,7 @@ export default function updater(renderIncrement, username){
   channel.join()
     .receive("ok", resp => { console.log("Joined successfully get ready to increment some counters", resp); })
     .receive("error", resp => { console.log("Unable to join you are missing out on a world of fun", resp); });
-  
+
   channel.onClose(event => console.log('Channel closed.'));
 
   channel.on("count_up", payload => {
@@ -18,7 +18,7 @@ export default function updater(renderIncrement, username){
   });
 
   channel.on("timer", payload => {
-    renderIncrement(payload.body);
+    renderIncrement(payload);
     console.log("Increment message received");
   });
 

@@ -8,12 +8,12 @@ defmodule WordScram.CounterIncrementer do
   end
 
   def loop do
-    counter = Repo.get!(Counter, 1)
-    new_value = Counter.update(counter)
+    {:ok, counter} = Repo.get!(Counter, 1)
+      |> Counter.update
+      
+    WordScram.Endpoint.broadcast! "the_counter", "timer", Counter.to_json(counter)
 
-    WordScram.Endpoint.broadcast! "the_counter", "timer", %{body: new_value}
-
-    IO.puts new_value
+    IO.puts counter.main
 
     :timer.sleep(1000)
     loop
