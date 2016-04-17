@@ -4,7 +4,10 @@ defmodule WordScram.User do
   schema "users" do
     field :username, :string
     field :password, :string
-    field :top_score, :integer
+    field :top_score, :integer, default: 0
+    field :avg_score, :integer, default: 0
+    field :total_wins, :integer, default: 0
+    field :total_plays, :integer, default: 0
 
     timestamps
   end

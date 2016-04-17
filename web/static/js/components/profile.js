@@ -18,7 +18,11 @@ var Profile = React.createClass({
   },
 
   joinGame(){
-    this.props.setMainState({ pageView:2 });
+    this.props.setMainState({ pageView: 2});
+  },
+
+  inGame(){
+    return(this.props.counter.active_game);
   },
 
   render(){
@@ -33,7 +37,7 @@ var Profile = React.createClass({
           </div>
 
         <DoubleButtons firstButton={{action: this.logoutExisting, text: "Logout"}}
-          secondButton={{action: this.joinGame, text:"Let's Play!"}}/>
+          secondButton={{action: this.joinGame, text:"Let's Play!"}} inGame={this.inGame()}/>
       </div>
     );
   }

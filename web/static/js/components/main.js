@@ -5,7 +5,7 @@ import Authorize from "./authorize";
 import Profile from "./profile";
 import Header from "./header";
 import Footer from "./footer";
-import Game from "./game";
+import GameCycle from "./game-cycle";
 
 var Main = React.createClass({
   getInitialState(){
@@ -13,15 +13,23 @@ var Main = React.createClass({
             user: {},
             pageView: 0,
             message: "HEY",
+            counter: {},
+            updaterCloseSend: updater(this.renderIncrement, ""),
            };
   },
 
-  sendReset(){
-    console.log("nice clicking ");
-    this.state.updaterCloseSend.send();
-    this.getUserInfo();
-    console.log("supposedly sent");
+  renderIncrement(reply){
+    this.setState({counter: reply});
+    console.log(reply);
   },
+
+
+  // sendReset(){
+  //   console.log("nice clicking ");
+  //   this.state.updaterCloseSend.send();
+  //   this.getUserInfo();
+  //   console.log("supposedly sent");
+  // },
 
   setMainState(info){
     this.setState(info);
@@ -46,9 +54,9 @@ var Main = React.createClass({
     case 0:
       return <Authorize setMainState={this.setMainState}/>;
     case 1:
-      return <Profile user={this.state.user} setMainState={this.setMainState}/>;
+      return <Profile user={this.state.user} counter={this.state.counter} setMainState={this.setMainState}/>;
     case 2:
-      return <Game user={this.state.user} setMainState={this.setMainState} sendReset={this.sendReset}/>;
+      return <GameCycle counter={this.state.counter} user={this.state.user} setMainState={this.setMainState} />;
     }
   },
 

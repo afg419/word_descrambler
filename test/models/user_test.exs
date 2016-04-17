@@ -34,4 +34,17 @@ defmodule WordScram.UserTest do
     assert {:error, changeset} = Repo.insert(user2)
     assert changeset.errors[:username] == "has already been taken"
   end
+
+  test "user has default 0 game attrs" do
+    # changeset = User.changeset(%User{}, @valid_attrs)
+
+    user = %User{}
+    |> User.changeset(@valid_attrs)
+    |> Repo.insert!
+
+    assert user.total_wins == 0
+    assert user.total_plays == 0
+    assert user.top_score == 0
+    assert user.avg_score == 0
+  end
 end
