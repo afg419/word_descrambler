@@ -11,13 +11,13 @@ var GameCycle = React.createClass({
 
   gameOrLobby(){
     if (this.inGame()){
-      return (<Game          counter={this.props.counter}
-                                user={this.props.user}
-                        setMainState={this.setMainState} />);
+      return (<Game  counter={this.props.counter}
+                        user={this.props.user}
+                setMainState={this.setMainState} />);
     } else {
-      return (<Lobby         counter={this.props.counter}
-                                user={this.props.user}
-                        setMainState={this.setMainState} />);
+      return (<Lobby counter={this.props.counter}
+                        user={this.props.user}
+                setMainState={this.setMainState} />);
     }
   },
 

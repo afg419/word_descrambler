@@ -15,7 +15,6 @@ var Main = React.createClass({
             message: "HEY",
             counter: {},
             updaterCloseSend: updater(this.renderIncrement, ""),
-
            };
   },
 
@@ -55,7 +54,7 @@ var Main = React.createClass({
     case 0:
       return <Authorize setMainState={this.setMainState}/>;
     case 1:
-      return <Profile user={this.state.user} setMainState={this.setMainState}/>;
+      return <Profile user={this.state.user} counter={this.state.counter} setMainState={this.setMainState}/>;
     case 2:
       return <GameCycle counter={this.state.counter} user={this.state.user} setMainState={this.setMainState} />;
     }
