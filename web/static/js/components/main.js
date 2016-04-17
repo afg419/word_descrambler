@@ -7,6 +7,7 @@ import Game from "./game";
 var Main = React.createClass({
   getInitialState(){
     return {
+            user: {},
             pageView: 0,
             username: "",
             loggedIn: false,
@@ -39,13 +40,16 @@ var Main = React.createClass({
     }
   },
 
+  setMainState(info){
+    this.setState(info);
+  },
+
   getUserInfo(){
     $.ajax({
       url: '/api/v1/sessions',
       type: 'GET',
       success: (reply) => {
         if(reply){
-          debugger;
           this.login(reply.username, reply.top_score);
           this.setState({message: "Logged in as "+ reply.username});
         } else
@@ -58,7 +62,7 @@ var Main = React.createClass({
   currentPage(){
     switch(this.state.pageView) {
     case 0:
-      return <Authorize loggedIn={this.state.loggedIn} login={this.login} logout={this.logout}/>;
+      return <Authorize setMainState={this.setMainState}/>;
     case 1:
       return <Game getUserInfo={this.getUserInfo} counter={this.state.counter} loggedIn={this.state.loggedIn} sendReset={this.sendReset}/>;
     }

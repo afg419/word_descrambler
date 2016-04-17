@@ -16,7 +16,8 @@ var Authorize = React.createClass({
       data: {username: username, password: password},
       success: (reply) => {
         if(reply){
-          this.props.login(username);
+          debugger;
+          this.props.setMainState({loggedIn: true, username: username});
           this.setState({message: "Created account and logged in as "+ username});
         } else
           this.setState({message: "Username already taken or password not long enough"});
