@@ -1,17 +1,35 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import updater from "../updater";
+import GameHelper from "./helpers/game-helper";
 
 var Game = React.createClass({
   getInitialState(){
-    return { letters: [], letterObject: {}};
+    return { letters: [], letterObject: {}, enteredWords: [], gh: new GameHelper()};
   },
 
   componentDidMount(){
     this.setState(
                   {letters: this.props.counter.letters,
-              letterObject: this.createLettersObject(this.props.counter.letters)}
+              letterObject: this.state.gh.createLettersObject(this.props.counter.letters)}
                  );
+  },
+
+  checkWord(event){
+    if(event.keyCode == 13){
+      var inputString = (this.refs.wordInput.value);
+      var inputObj = this.state.gh.createLettersObject(inputString.split(""));
+
+      if(!this.state.gh.compareLetterObjects(inputObj, this.state.letterObject)){
+        this.props.setMainState({message: "You can only use the letters above!"});
+      } else if (!this.state.gh.isWord(inputString)){
+        this.props.setMainState({message: "That doesn't look like a word..."});
+      } else if (this.state.gh.isRepeat(inputString, this.state.enteredWords)) {
+        this.props.setMainState({message: "Only once per word please"});
+      } else {
+        this.state.enteredWords.push(inputString);
+      }
+    }
   },
 
   formattedLetters(){
@@ -20,37 +38,10 @@ var Game = React.createClass({
     }));
   },
 
-  checkWord(event){
-    if(event.keyCode == 13){
-      var inputString = (this.refs.wordInput.value).split("");
-      var inputObj = this.createLettersObject(inputString);
-      if(this.compareLetterObjects(inputObj, this.state.letterObject)){
-        alert("LEGAL");
-      } else {
-        alert("ILLEGAL");
-      }
-    }
-  },
-
-  createLettersObject(inputString){
-    var letterObject = {};
-    inputString.forEach((letter) => {
-      if(letterObject[letter] === undefined){
-        letterObject[letter] = 0;
-      }
-      letterObject[letter] += 1;
-    });
-    return letterObject;
-  },
-
-  compareLetterObjects(ob1, ob2){
-    var response = true;
-    for (var letter in ob1) {
-      if (ob1.hasOwnProperty(letter)) {
-        response = response && (ob1[letter] <= ob2[letter]);
-      }
-    }
-    return response;
+  formattedEnteredWords(){
+    return (this.state.enteredWords.map( (word, i) => {
+      return <span key={i} style={{marginLeft: "1.05em"}}>{word}</span>;
+    }));
   },
 
   render(){
@@ -62,7 +53,7 @@ var Game = React.createClass({
           <div className="vertical-spacer"></div>
           <div className="game-state">
           <div>Time remaining: {this.props.counter.main}</div>
-          <div className="container word-results"></div>
+          <div className="container word-results">{this.formattedEnteredWords()}</div>
           </div>
         </div>
       </div>
