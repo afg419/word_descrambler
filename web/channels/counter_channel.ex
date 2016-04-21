@@ -10,6 +10,14 @@ defmodule WordScram.CounterChannel do
     {:ok, socket}
   end
 
+  def handle_in("finished-game-data", %{"username" => username, "data" => data}, socket) do
+    user = Repo.get_by(User, username: username)
+    {:ok, user} = User.played_game(user, data["score"])
+
+    broadcast!(socket, "update-user-data", User.to_json(user))
+    {:noreply, socket}
+  end
+
   # def handle_in("timer", _params, socket) do
   #   counter = Repo.get!(Counter, 1)
   #   new_value = counter.main + 1

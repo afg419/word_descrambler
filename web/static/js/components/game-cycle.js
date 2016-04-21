@@ -5,19 +5,47 @@ import Game from "./game";
 import Lobby from "./lobby";
 
 var GameCycle = React.createClass({
-  inGame(){
-    return this.props.counter.active_game;
+  getInitialState(){
+    return {enteredWords: []};
+  },
+
+  componentWillReceiveProps(nextProps){
+    if(this.inGame() && !this.inGame(nextProps.counter)){
+      this.endGame();
+    } else if (!this.inGame() && this.inGame(nextProps.counter)){
+      this.startGame();
+    }
+  },
+
+  inGame(counter = this.props.counter){
+    return counter.active_game;
+  },
+
+  addEnteredWord(word){
+    var eW = this.state.enteredWords;
+    this.setState({enteredWords: eW.concat([word])});
+  },
+
+  startGame(){
+    this.setState({enteredWords: []});
+  },
+
+  endGame(){
+    this.props.updater.send({score: this.state.enteredWords.length});
   },
 
   gameOrLobby(){
     if (this.inGame()){
       return (<Game  counter={this.props.counter}
                         user={this.props.user}
-                setMainState={this.setMainState} />);
+                setMainState={this.props.setMainState}
+                     updater={this.props.updater}
+                enteredWords={this.state.enteredWords}
+              addEnteredWord={this.addEnteredWord} />);
     } else {
       return (<Lobby counter={this.props.counter}
                         user={this.props.user}
-                setMainState={this.setMainState} />);
+                setMainState={this.props.setMainState} />);
     }
   },
 

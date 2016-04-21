@@ -1,6 +1,6 @@
 import {Socket} from "phoenix";
 
-export default function updater(renderIncrement, username){
+export default function updater(renderIncrement, username, updateUserData){
   let socket = new Socket("/socket", {params: {token: window.userToken}});
   socket.connect();
 
@@ -22,10 +22,17 @@ export default function updater(renderIncrement, username){
     console.log("Increment message received");
   });
 
+  channel.on("update-user-data", payload => {
+    // console.log("updated user:" + payload.username + payload.total_score)
+    console.log(payload);
+    updateUserData(payload);
+    console.log("updating user data message received");
+  });
+
   const close = () => socket.disconnect();
 
-  const send = () => {
-    channel.push("count_up", {username: username});
+  const send = (data) => {
+    channel.push("finished-game-data", {username: username, data: data});
   };
 
   return {close: close, send: send};

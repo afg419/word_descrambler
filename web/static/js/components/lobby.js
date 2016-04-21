@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import updater from "../updater";
+import UserStats from "./user-stats";
 
 var Lobby = React.createClass({
   render(){
@@ -8,7 +9,7 @@ var Lobby = React.createClass({
       <div className="center">
         <div className="container">
           <div>Time remaining: {this.props.counter.main}</div>
-          <div className="container word-results"></div>
+            <UserStats user={this.props.user} container="word-results"/>
         </div>
       </div>
     );

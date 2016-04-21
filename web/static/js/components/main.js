@@ -14,25 +14,24 @@ var Main = React.createClass({
             pageView: 0,
             message: "HEY",
             counter: {},
-            updaterCloseSend: updater(this.renderIncrement, ""),
+            updater: updater(this.renderIncrement, "", this.updateUserData),
            };
   },
 
   renderIncrement(reply){
     this.setState({counter: reply});
-    console.log(reply);
   },
 
-
-  // sendReset(){
-  //   console.log("nice clicking ");
-  //   this.state.updaterCloseSend.send();
-  //   this.getUserInfo();
-  //   console.log("supposedly sent");
-  // },
+  updateUserData(reply){
+    this.setState({user: reply});
+  },
 
   setMainState(info){
     this.setState(info);
+  },
+
+  componentDidMount(){
+    this.getUserInfo();
   },
 
   getUserInfo(){
@@ -56,13 +55,10 @@ var Main = React.createClass({
     case 1:
       return <Profile user={this.state.user} counter={this.state.counter} setMainState={this.setMainState}/>;
     case 2:
-      return <GameCycle counter={this.state.counter} user={this.state.user} setMainState={this.setMainState} />;
+      return <GameCycle updater={this.state.updater} counter={this.state.counter} user={this.state.user} setMainState={this.setMainState} />;
     }
   },
 
-  componentDidMount(){
-    this.getUserInfo();
-  },
 
   render() {
     return (
