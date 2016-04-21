@@ -18,7 +18,7 @@ var Profile = React.createClass({
   },
 
   joinGame(){
-    this.props.setMainState({ pageView: 2});
+    this.props.setMainState({ pageView: 2 });
   },
 
   inGame(){
@@ -41,9 +41,6 @@ var Profile = React.createClass({
       </div>
     );
   }
-
 });
 
 module.exports = Profile;
-
-{/*<button type="button" className="btn-big-red" onClick={this.props.sendReset}>RESET</button>*/}

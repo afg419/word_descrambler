@@ -8,7 +8,7 @@ var Lobby = React.createClass({
       <div className="center">
         <div className="container">
           <div>Time remaining: {this.props.counter.main}</div>
-          <div className="container word-results"></div>
+          <div className="container word-results">TopScore: {this.props.user.top_score}</div>
         </div>
       </div>
     );

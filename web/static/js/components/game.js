@@ -27,7 +27,8 @@ var Game = React.createClass({
       } else if (this.state.gh.isRepeat(inputString, this.state.enteredWords)) {
         this.props.setMainState({message: "Only once per word please"});
       } else {
-        this.state.enteredWords.push(inputString);
+        var eW = this.state.enteredWords;
+        this.setState({enteredWords: eW.concat([inputString])});
       }
     }
   },
@@ -44,7 +45,15 @@ var Game = React.createClass({
     }));
   },
 
+  endGame(){
+    this.props.updater.send({score: this.state.enteredWords.length});
+  },
+
   render(){
+    if (this.props.counter.main >= 9){
+      this.endGame();
+    }
+
     return(
       <div className="center">
         <div className="container">
@@ -52,8 +61,8 @@ var Game = React.createClass({
           <input ref="wordInput" className="word-input" onKeyDown={this.checkWord} placeholder=" Type words using the letters above"/>
           <div className="vertical-spacer"></div>
           <div className="game-state">
-          <div>Time remaining: {this.props.counter.main}</div>
-          <div className="container word-results">{this.formattedEnteredWords()}</div>
+            <div>Time remaining: {this.props.counter.main}</div>
+            <div className="container word-results">{this.formattedEnteredWords()}</div>
           </div>
         </div>
       </div>

@@ -14,13 +14,16 @@ var Main = React.createClass({
             pageView: 0,
             message: "HEY",
             counter: {},
-            updaterCloseSend: updater(this.renderIncrement, ""),
+            updater: updater(this.renderIncrement, "", this.updateUserData),
            };
   },
 
   renderIncrement(reply){
     this.setState({counter: reply});
-    console.log(reply);
+  },
+
+  updateUserData(reply){
+    this.setState({user: reply});
   },
 
   setMainState(info){
@@ -52,7 +55,7 @@ var Main = React.createClass({
     case 1:
       return <Profile user={this.state.user} counter={this.state.counter} setMainState={this.setMainState}/>;
     case 2:
-      return <GameCycle counter={this.state.counter} user={this.state.user} setMainState={this.setMainState} />;
+      return <GameCycle updater={this.state.updater} counter={this.state.counter} user={this.state.user} setMainState={this.setMainState} />;
     }
   },
 
