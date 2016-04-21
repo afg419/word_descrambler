@@ -6,15 +6,32 @@ import Lobby from "./lobby";
 
 var GameCycle = React.createClass({
   getInitialState(){
-    return {};
+    return {enteredWords: []};
   },
 
-  inGame(){
-    return this.props.counter.active_game;
+  componentWillReceiveProps(nextProps){
+    if(this.inGame() && !this.inGame(nextProps.counter)){
+      this.endGame();
+    } else if (!this.inGame() && this.inGame(nextProps.counter)){
+      this.startGame();
+    }
   },
 
-  setCycleState(info){
-    this.setState(info);
+  inGame(counter = this.props.counter){
+    return counter.active_game;
+  },
+
+  addEnteredWord(word){
+    var eW = this.state.enteredWords;
+    this.setState({enteredWords: eW.concat([word])});
+  },
+
+  startGame(){
+    this.setState({enteredWords: []});
+  },
+
+  endGame(){
+    this.props.updater.send({score: this.state.enteredWords.length});
   },
 
   gameOrLobby(){
@@ -23,7 +40,8 @@ var GameCycle = React.createClass({
                         user={this.props.user}
                 setMainState={this.props.setMainState}
                      updater={this.props.updater}
-               setCycleState={this.setCycleState} />);
+                enteredWords={this.state.enteredWords}
+              addEnteredWord={this.addEnteredWord} />);
     } else {
       return (<Lobby counter={this.props.counter}
                         user={this.props.user}
@@ -34,6 +52,11 @@ var GameCycle = React.createClass({
   quitGame(){
     this.props.setMainState({pageView: 1});
   },
+
+  // gameEnded(){
+  //   reply = this.props.updater.send({score: this.state.enteredWords.length});
+  //   this.setState({gameRunning: reply.gameRunning});
+  // },
 
   render(){
     return(

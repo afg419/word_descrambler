@@ -1,7 +1,7 @@
 defmodule WordScram.User do
   use WordScram.Web, :model
   alias WordScram.Repo
-  
+
   schema "users" do
     field :username, :string
     field :password, :string
@@ -25,7 +25,7 @@ defmodule WordScram.User do
 
   def played_game(user, score) do
     total_plays = user.total_plays + 1
-    top_score = Enum.max([score, user.top_score])
+    top_score = Enum.max([score, user.top_score || 0])
     WordScram.User.changeset(user, %{total_plays: total_plays, top_score: top_score})
     |> Repo.update
   end

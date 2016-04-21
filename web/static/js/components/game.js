@@ -27,8 +27,7 @@ var Game = React.createClass({
       } else if (this.state.gh.isRepeat(inputString, this.state.enteredWords)) {
         this.props.setMainState({message: "Only once per word please"});
       } else {
-        var eW = this.state.enteredWords;
-        this.setState({enteredWords: eW.concat([inputString])});
+        this.props.addEnteredWord(inputString);
       }
     }
   },
@@ -40,19 +39,14 @@ var Game = React.createClass({
   },
 
   formattedEnteredWords(){
-    return (this.state.enteredWords.map( (word, i) => {
+    return (this.props.enteredWords.map( (word, i) => {
       return <span key={i} style={{marginLeft: "1.05em"}}>{word}</span>;
     }));
   },
 
-  endGame(){
-    this.props.updater.send({score: this.state.enteredWords.length});
-  },
 
   render(){
-    if (this.props.counter.main >= 9){
-      this.endGame();
-    }
+
 
     return(
       <div className="center">

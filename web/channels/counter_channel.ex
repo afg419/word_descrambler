@@ -11,11 +11,10 @@ defmodule WordScram.CounterChannel do
   end
 
   def handle_in("finished-game-data", %{"username" => username, "data" => data}, socket) do
-    # IEx.pry
-    {:ok, user} = Repo.get_by(User, username: username)
-      |> User.played_game(data["score"])
+    user = Repo.get_by(User, username: username)
+    {:ok, user} = User.played_game(user, data["score"])
 
-    broadcast! socket, "update-user-data", User.to_json(user)
+    broadcast!(socket, "update-user-data", User.to_json(user))
     {:noreply, socket}
   end
 
