@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import DoubleButtons from "./double-buttons";
-import UserProfile from "./user-profile";
+import UserStats from "./user-stats";
 import GameProfile from "./game-profile";
 
 var Profile = React.createClass({
@@ -28,7 +28,7 @@ var Profile = React.createClass({
   render(){
     return(
       <div>
-        <UserProfile user={this.props.user}/>
+        <UserStats user={this.props.user} container="user-profile"/>
           <div className="vertical-spacer">
           </div>
 

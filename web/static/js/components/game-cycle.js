@@ -53,11 +53,6 @@ var GameCycle = React.createClass({
     this.props.setMainState({pageView: 1});
   },
 
-  // gameEnded(){
-  //   reply = this.props.updater.send({score: this.state.enteredWords.length});
-  //   this.setState({gameRunning: reply.gameRunning});
-  // },
-
   render(){
     return(
       <div className="center">

@@ -24,7 +24,7 @@ var Game = React.createClass({
         this.props.setMainState({message: "You can only use the letters above!"});
       } else if (!this.state.gh.isWord(inputString)){
         this.props.setMainState({message: "That doesn't look like a word..."});
-      } else if (this.state.gh.isRepeat(inputString, this.state.enteredWords)) {
+      } else if (this.state.gh.isRepeat(inputString, this.props.enteredWords)) {
         this.props.setMainState({message: "Only once per word please"});
       } else {
         this.props.addEnteredWord(inputString);
