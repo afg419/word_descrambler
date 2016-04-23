@@ -6,7 +6,7 @@ defmodule WordScram.CounterChannel do
   alias WordScram.Repo
   alias WordScram.User
 
-  def join("the_counter", _message, socket) do
+  def join("the_counter", msg, socket) do
     {:ok, socket}
   end
 
@@ -14,7 +14,7 @@ defmodule WordScram.CounterChannel do
     user = Repo.get_by(User, username: username)
     {:ok, user} = User.played_game(user, data["score"])
 
-    broadcast!(socket, "update-user-data", User.to_json(user))
+    push(socket, "update-user-data", User.to_json(user))
     {:noreply, socket}
   end
 

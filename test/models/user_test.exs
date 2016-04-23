@@ -1,3 +1,5 @@
+require IEx
+
 defmodule WordScram.UserTest do
   use WordScram.ModelCase
 
@@ -36,8 +38,6 @@ defmodule WordScram.UserTest do
   end
 
   test "user has default 0 game attrs" do
-    # changeset = User.changeset(%User{}, @valid_attrs)
-
     user = %User{}
     |> User.changeset(@valid_attrs)
     |> Repo.insert!
@@ -46,5 +46,25 @@ defmodule WordScram.UserTest do
     assert user.total_plays == 0
     assert user.top_score == 0
     assert user.avg_score == 0
+  end
+
+  test "user plays a game" do
+    user = %User{}
+    |> User.changeset(@valid_attrs)
+    |> Repo.insert!
+
+    {:ok, user} = User.played_game(user, 10)
+
+    assert user.total_wins == 0
+    assert user.total_plays == 1
+    assert user.top_score == 10
+    assert user.avg_score == 10
+
+    {:ok, user} = User.played_game(user, 20)
+
+    assert user.total_wins == 0
+    assert user.total_plays == 2
+    assert user.top_score == 20
+    assert user.avg_score == 15
   end
 end

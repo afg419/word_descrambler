@@ -14,7 +14,7 @@ var Main = React.createClass({
             pageView: 0,
             message: "HEY",
             counter: {},
-            updater: updater(this.renderIncrement, "", this.updateUserData),
+            updater: undefined
            };
   },
 
@@ -40,7 +40,12 @@ var Main = React.createClass({
       type: 'GET',
       success: (user) => {
         if(user){
-          this.setMainState({user: user, message: user.username, pageView: 1});
+          this.setMainState(
+           {user: user,
+            message: user.username,
+            pageView: 1,
+            updater: updater(this.renderIncrement, user.username, this.updateUserData)}
+          );
         } else
           this.setState({message: ""});
         }
@@ -51,7 +56,7 @@ var Main = React.createClass({
   currentPage(){
     switch(this.state.pageView) {
     case 0:
-      return <Authorize setMainState={this.setMainState}/>;
+      return <Authorize getUserInfo={this.getUserInfo} setMainState={this.setMainState}/>;
     case 1:
       return <Profile user={this.state.user} counter={this.state.counter} setMainState={this.setMainState}/>;
     case 2:

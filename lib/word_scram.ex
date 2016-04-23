@@ -19,6 +19,7 @@ defmodule WordScram do
         supervisor(WordScram.Repo, []),
         # Here you could define other workers and supervisors as children
         # worker(WordScram.Worker, [arg1, arg2, arg3]),
+
         worker(WordScram.CounterIncrementer, []),
       ]
     end

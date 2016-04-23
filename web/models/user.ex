@@ -1,3 +1,5 @@
+require IEx
+
 defmodule WordScram.User do
   use WordScram.Web, :model
   alias WordScram.Repo
@@ -25,10 +27,10 @@ defmodule WordScram.User do
   end
 
   def get_avg(user, score) do
-    if user.avg_score == 0 do
+    if user.total_plays == 0 do
       score
     else
-      round(user.avg_score + score/user.total_plays)
+      round((user.avg_score * user.total_plays + score)/(user.total_plays+1))
     end
   end
 

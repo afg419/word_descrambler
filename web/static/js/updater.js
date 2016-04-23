@@ -23,7 +23,6 @@ export default function updater(renderIncrement, username, updateUserData){
   });
 
   channel.on("update-user-data", payload => {
-    // console.log("updated user:" + payload.username + payload.total_score)
     console.log(payload);
     updateUserData(payload);
     console.log("updating user data message received");

@@ -11,7 +11,10 @@ var Profile = React.createClass({
       type: 'DELETE',
       success: (reply) => {
         if(reply){
-          this.props.setMainState({pageView: 0, message: "Logged out"});
+          this.props.setMainState({pageView: 0,
+                                    message: "Logged out",
+                                       user: {},
+                                    updater: undefined});
         }
       }
     });
