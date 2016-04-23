@@ -4,7 +4,7 @@ export default function updater(renderIncrement, username, updateUserData){
   let socket = new Socket("/socket", {params: {token: window.userToken}});
   socket.connect();
 
-  let channel = socket.channel("the_counter", {});
+  let channel = socket.channel("the_counter", {username: username});
 
   channel.join()
     .receive("ok", resp => { console.log("Joined successfully get ready to increment some counters", resp); })

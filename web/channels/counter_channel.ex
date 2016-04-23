@@ -1,12 +1,10 @@
-require IEx
-
 defmodule WordScram.CounterChannel do
   use Phoenix.Channel
   alias WordScram.Counter
   alias WordScram.Repo
   alias WordScram.User
 
-  def join("the_counter", msg, socket) do
+  def join("the_counter", %{ "username" => username }, socket) do
     {:ok, socket}
   end
 

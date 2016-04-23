@@ -11,6 +11,7 @@ defmodule WordScram.User do
     field :avg_score, :integer, default: 0
     field :total_wins, :integer, default: 0
     field :total_plays, :integer, default: 0
+    field :in_play_cycle, :boolean, default: false
 
     timestamps
   end
