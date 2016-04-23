@@ -6,11 +6,15 @@ import Lobby from "./lobby";
 
 var GameCycle = React.createClass({
   getInitialState(){
-    return {enteredWords: [], inCyclePlayers: []};
+    return {enteredWords: []};
   },
 
   componentDidMount(){
-    var reply = this.props.updater.togglePlayCycle(true);
+    var users = this.props.updater.togglePlayCycle(true);
+    console.log("SOME STUFF COMING IN XXXXX" + users)
+    this.setState({inCyclePlayers: users}, ()=>{
+      console.log("our new state is:" + this.state.inCyclePlayers);
+    });
   },
 
   componentWillReceiveProps(nextProps){

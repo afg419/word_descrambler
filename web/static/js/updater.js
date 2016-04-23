@@ -1,6 +1,6 @@
 import {Socket} from "phoenix";
 
-export default function updater(renderIncrement, username, updateUserData){
+export default function updater(renderIncrement, username, updateUserData, updateInCyclePlayers){
   let socket = new Socket("/socket", {params: {token: window.userToken}});
   socket.connect();
 
@@ -31,11 +31,7 @@ export default function updater(renderIncrement, username, updateUserData){
   channel.on("toggled-play-cycle", payload => {
     console.log(payload);
     console.log("toggled in game cycle");
-  });
-
-  channel.on("in-cycle-players", payload => {
-    console.log(payload);
-    console.log("look at all the in cycle players!");
+    updateInCyclePlayers(payload);
   });
 
   const close = () => socket.disconnect();
@@ -45,7 +41,7 @@ export default function updater(renderIncrement, username, updateUserData){
   };
 
   const togglePlayCycle = (bool) => {
-    console.log("trying to make the player ingamecycle == "+bool)
+    console.log("trying to make the player ingamecycle == " + bool);
     channel.push("toggle-play-cycle", {username: username, bool: bool});
   };
 

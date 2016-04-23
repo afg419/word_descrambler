@@ -14,7 +14,8 @@ var Main = React.createClass({
             pageView: 0,
             message: "HEY",
             counter: {},
-            updater: undefined
+            updater: undefined,
+            inCyclePlayers: []
            };
   },
 
@@ -24,6 +25,14 @@ var Main = React.createClass({
 
   updateUserData(reply){
     this.setState({user: reply});
+  },
+
+  updateInCyclePlayers(reply){
+    this.setState({inCyclePlayers: reply}, ()=>{
+      console.log("Checkout my new in cyclers!");
+      console.log(this.state.inCyclePlayers);
+
+    });
   },
 
   setMainState(info){
@@ -44,7 +53,10 @@ var Main = React.createClass({
            {user: user,
             message: user.username,
             pageView: 1,
-            updater: updater(this.renderIncrement, user.username, this.updateUserData)}
+            updater: updater(this.renderIncrement,
+                                    user.username,
+                              this.updateUserData,
+                        this.updateInCyclePlayers)}
           );
         } else
           this.setState({message: ""});
@@ -56,11 +68,23 @@ var Main = React.createClass({
   currentPage(){
     switch(this.state.pageView) {
     case 0:
-      return <Authorize getUserInfo={this.getUserInfo} setMainState={this.setMainState}/>;
+      return <Authorize
+                getUserInfo={this.getUserInfo}
+                setMainState={this.setMainState}/>;
     case 1:
-      return <Profile updater={this.state.updater} user={this.state.user} counter={this.state.counter} setMainState={this.setMainState}/>;
+      return <Profile
+                inCyclePlayers={this.state.inCyclePlayers}
+                updater={this.state.updater}
+                user={this.state.user}
+                counter={this.state.counter}
+                setMainState={this.setMainState}/>;
     case 2:
-      return <GameCycle updater={this.state.updater} counter={this.state.counter} user={this.state.user} setMainState={this.setMainState} />;
+      return <GameCycle
+                inCyclePlayers={this.state.inCyclePlayers}
+                updater={this.state.updater}
+                counter={this.state.counter}
+                user={this.state.user}
+                setMainState={this.setMainState} />;
     }
   },
 
