@@ -6,7 +6,11 @@ import Lobby from "./lobby";
 
 var GameCycle = React.createClass({
   getInitialState(){
-    return {enteredWords: []};
+    return {enteredWords: [], inCyclePlayers: []};
+  },
+
+  componentDidMount(){
+    var reply = this.props.updater.togglePlayCycle(true);
   },
 
   componentWillReceiveProps(nextProps){

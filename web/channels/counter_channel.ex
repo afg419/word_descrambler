@@ -18,30 +18,12 @@ defmodule WordScram.CounterChannel do
 
   def handle_in("toggle-play-cycle", %{"username" => username, "bool" => bool}, socket) do
     user = Repo.get_by(User, username: username)
-    {:ok, user} = User.toggle_play_cycle(user, bool)
-    IO.puts("InGameCycle: #{user.in_play_cycle}")
-    push(socket, "toggled-play-cycle", User.to_json(user))
+            |> User.toggle_play_cycle(bool)
+
+    users = User.all_in_play_cycle
+            |> Enum.map(fn user -> User.to_json(user) end)
+
+    broadcast!(socket, "toggled-play-cycle", %{users: users})
     {:noreply, socket}
   end
-
-  # def handle_in("timer", _params, socket) do
-  #   counter = Repo.get!(Counter, 1)
-  #   new_value = counter.main + 1
-  #
-  #   changeset = Counter.changeset(counter, %{main: new_value})
-  #
-  #   case Repo.update(changeset) do
-  #   {:error, changeset} ->
-  #     broadcast! socket, "timer", %{body: false}
-  #   changeset ->
-  #     broadcast! socket, "timer", %{body: new_value}
-  #   end
-  #
-  #   {:noreply, socket}
-  # end
-
-  # def handle_out("count_up", payload, socket) do
-  #   push socket, "new_msg", payload
-  #   {:noreply, socket}
-  # end
 end

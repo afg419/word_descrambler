@@ -33,6 +33,12 @@ export default function updater(renderIncrement, username, updateUserData){
     console.log("toggled in game cycle");
   });
 
+  channel.on("in-cycle-players", payload => {
+    debugger;
+    console.log(payload);
+    console.log("look at all the in cycle players!");
+  });
+
   const close = () => socket.disconnect();
 
   const send = (data) => {
