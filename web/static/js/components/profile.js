@@ -26,7 +26,6 @@ var Profile = React.createClass({
 
   joinGame(){
     this.props.setMainState({ pageView: 2 });
-    this.props.updater.togglePlayCycle(true);
   },
 
   inGame(){

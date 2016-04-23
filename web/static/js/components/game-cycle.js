@@ -55,7 +55,6 @@ var GameCycle = React.createClass({
 
   quitGame(){
     this.props.setMainState({pageView: 1});
-    this.props.updater.togglePlayCycle(false);
   },
 
   render(){

@@ -34,7 +34,6 @@ export default function updater(renderIncrement, username, updateUserData){
   });
 
   channel.on("in-cycle-players", payload => {
-    debugger;
     console.log(payload);
     console.log("look at all the in cycle players!");
   });
