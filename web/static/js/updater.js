@@ -28,11 +28,21 @@ export default function updater(renderIncrement, username, updateUserData){
     console.log("updating user data message received");
   });
 
+  channel.on("toggled-play-cycle", payload => {
+    console.log(payload);
+    console.log("toggled in game cycle");
+  });
+
   const close = () => socket.disconnect();
 
   const send = (data) => {
     channel.push("finished-game-data", {username: username, data: data});
   };
 
-  return {close: close, send: send};
+  const togglePlayCycle = (bool) => {
+    console.log("trying to make the player ingamecycle == "+bool)
+    channel.push("toggle-play-cycle", {username: username, bool: bool});
+  };
+
+  return {close: close, send: send, togglePlayCycle: togglePlayCycle};
 }

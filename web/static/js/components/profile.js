@@ -20,8 +20,13 @@ var Profile = React.createClass({
     });
   },
 
+  componentDidMount(){
+    this.props.updater.togglePlayCycle(false);
+  },
+
   joinGame(){
     this.props.setMainState({ pageView: 2 });
+    this.props.updater.togglePlayCycle(true);
   },
 
   inGame(){

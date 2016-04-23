@@ -67,4 +67,33 @@ defmodule WordScram.UserTest do
     assert user.top_score == 20
     assert user.avg_score == 15
   end
+
+  test "user enters and exists game cycle" do
+    user = %User{}
+    |> User.changeset(@valid_attrs)
+    |> Repo.insert!
+
+    assert user.in_play_cycle == false
+
+    {:ok, user} = User.toggle_play_cycle(user, true)
+
+    assert user.in_play_cycle == true
+
+    {:ok, user} = User.toggle_play_cycle(user, false)
+
+    assert user.in_play_cycle == false
+  end
+
+  test "users in game " do
+    User.changeset(%User{}, %{username: "axeface1", password: "password", in_play_cycle: true})
+    |> Repo.insert!
+    User.changeset(%User{}, %{username: "axeface2", password: "password"})
+    |> Repo.insert!
+    User.changeset(%User{}, %{username: "axeface3", password: "password", in_play_cycle: true})
+    |> Repo.insert!
+    User.changeset(%User{}, %{username: "axeface4", password: "password", in_play_cycle: true})
+    |> Repo.insert!
+
+    assert Enum.count(User.all_in_play_cycle) == 3
+  end
 end

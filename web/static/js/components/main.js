@@ -58,7 +58,7 @@ var Main = React.createClass({
     case 0:
       return <Authorize getUserInfo={this.getUserInfo} setMainState={this.setMainState}/>;
     case 1:
-      return <Profile user={this.state.user} counter={this.state.counter} setMainState={this.setMainState}/>;
+      return <Profile updater={this.state.updater} user={this.state.user} counter={this.state.counter} setMainState={this.setMainState}/>;
     case 2:
       return <GameCycle updater={this.state.updater} counter={this.state.counter} user={this.state.user} setMainState={this.setMainState} />;
     }

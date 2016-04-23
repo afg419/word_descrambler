@@ -17,14 +17,24 @@ defmodule WordScram.User do
   end
 
   @required_fields ~w(username password)
-  @optional_fields ~w(top_score avg_score total_plays total_wins)
+  @optional_fields ~w(top_score avg_score total_plays total_wins in_play_cycle)
+
+  def all_in_play_cycle do
+    Repo.all(from u in WordScram.User, where: u.in_play_cycle == true, select: u)
+  end
 
   def to_json(user) do
     %{username: user.username,
             id: user.id,
    total_plays: user.total_plays,
      top_score: user.top_score,
-     avg_score: user.avg_score}
+     avg_score: user.avg_score,
+ in_play_cycle: user.in_play_cycle}
+  end
+
+  def toggle_play_cycle(user, bool) do
+    WordScram.User.changeset(user, %{in_play_cycle: bool})
+    |> Repo.update
   end
 
   def get_avg(user, score) do
