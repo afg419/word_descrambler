@@ -10,11 +10,7 @@ var GameCycle = React.createClass({
   },
 
   componentDidMount(){
-    var users = this.props.updater.togglePlayCycle(true);
-    console.log("SOME STUFF COMING IN XXXXX" + users)
-    this.setState({inCyclePlayers: users}, ()=>{
-      console.log("our new state is:" + this.state.inCyclePlayers);
-    });
+    this.props.updater.togglePlayCycle(true);
   },
 
   componentWillReceiveProps(nextProps){
@@ -39,7 +35,9 @@ var GameCycle = React.createClass({
   },
 
   endGame(){
+    debugger
     this.props.updater.send({score: this.state.enteredWords.length});
+    this.props.updater.togglePlayCycle(true);
   },
 
   gameOrLobby(){
@@ -53,7 +51,8 @@ var GameCycle = React.createClass({
     } else {
       return (<Lobby counter={this.props.counter}
                         user={this.props.user}
-                setMainState={this.props.setMainState} />);
+                setMainState={this.props.setMainState}
+                inCyclePlayers={this.props.inCyclePlayers} />);
     }
   },
 
@@ -64,6 +63,7 @@ var GameCycle = React.createClass({
   render(){
     return(
       <div className="center">
+        <h3>{this.props.user.username}</h3>
         {this.gameOrLobby()}
         <button onClick={this.quitGame}>Quit</button>
       </div>

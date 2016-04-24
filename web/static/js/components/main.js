@@ -24,14 +24,15 @@ var Main = React.createClass({
   },
 
   updateUserData(reply){
-    this.setState({user: reply});
+    this.setState({user: reply}, () => {
+      console.log("Checkout my new user");
+    });
   },
 
   updateInCyclePlayers(reply){
     this.setState({inCyclePlayers: reply}, ()=>{
       console.log("Checkout my new in cyclers!");
       console.log(this.state.inCyclePlayers);
-
     });
   },
 
@@ -73,14 +74,14 @@ var Main = React.createClass({
                 setMainState={this.setMainState}/>;
     case 1:
       return <Profile
-                inCyclePlayers={this.state.inCyclePlayers}
+                inCyclePlayers={this.state.inCyclePlayers.users}
                 updater={this.state.updater}
                 user={this.state.user}
                 counter={this.state.counter}
                 setMainState={this.setMainState}/>;
     case 2:
       return <GameCycle
-                inCyclePlayers={this.state.inCyclePlayers}
+                inCyclePlayers={this.state.inCyclePlayers.users}
                 updater={this.state.updater}
                 counter={this.state.counter}
                 user={this.state.user}

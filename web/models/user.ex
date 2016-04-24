@@ -41,7 +41,7 @@ defmodule WordScram.User do
     if user.total_plays == 0 do
       score
     else
-      round((user.avg_score * user.total_plays + score)/(user.total_plays+1))
+      (user.avg_score * user.total_plays + score)/(user.total_plays+1)
     end
   end
 

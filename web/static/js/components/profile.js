@@ -39,7 +39,7 @@ var Profile = React.createClass({
           <div className="vertical-spacer">
           </div>
 
-        <GameProfile user={this.props.user}/>
+        <GameProfile counter={this.props.counter} user={this.props.user} inCyclePlayers={this.props.inCyclePlayers}/>
           <div className="vertical-spacer">
           </div>
 

@@ -1,3 +1,4 @@
+require IEx
 defmodule WordScram.CounterChannel do
   use Phoenix.Channel
   alias WordScram.Counter
@@ -17,6 +18,7 @@ defmodule WordScram.CounterChannel do
   end
 
   def handle_in("toggle-play-cycle", %{"username" => username, "bool" => bool}, socket) do
+    socket = assign(socket, :current_username, username)
     user = Repo.get_by(User, username: username)
             |> User.toggle_play_cycle(bool)
 
@@ -25,5 +27,18 @@ defmodule WordScram.CounterChannel do
 
     broadcast!(socket, "toggled-play-cycle", %{users: users})
     {:noreply, socket}
+  end
+
+  def terminate(reason, socket) do
+    IO.puts("TERMINATED")
+
+    {:ok, user} = Repo.get_by(User, username: socket.assigns.current_username)
+            |> User.toggle_play_cycle(false)
+
+    users = User.all_in_play_cycle
+            |> Enum.map(fn user -> User.to_json(user) end)
+
+    broadcast!(socket, "toggled-play-cycle", %{users: users})
+    :ok
   end
 end

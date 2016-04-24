@@ -10,7 +10,18 @@ export default function updater(renderIncrement, username, updateUserData, updat
     .receive("ok", resp => { console.log("Joined successfully get ready to increment some counters", resp); })
     .receive("error", resp => { console.log("Unable to join you are missing out on a world of fun", resp); });
 
-  channel.onClose(event => console.log('Channel closed.'));
+  // socket.on('disconnect', () => togglePlayCycle(false));
+
+
+  // socket.onClose(event => {
+  //   console.log('Channel closed.');
+  //   togglePlayCycle(false);
+  // });
+
+  channel.onClose(event => {
+    console.log('Channel closed.');
+    togglePlayCycle(false);
+  });
 
   channel.on("count_up", payload => {
     renderIncrement(payload.body);
@@ -23,14 +34,14 @@ export default function updater(renderIncrement, username, updateUserData, updat
   });
 
   channel.on("update-user-data", payload => {
+    console.log("updating user data message received");
     console.log(payload);
     updateUserData(payload);
-    console.log("updating user data message received");
   });
 
   channel.on("toggled-play-cycle", payload => {
+    console.log("In updating cyclers");
     console.log(payload);
-    console.log("toggled in game cycle");
     updateInCyclePlayers(payload);
   });
 
@@ -41,7 +52,6 @@ export default function updater(renderIncrement, username, updateUserData, updat
   };
 
   const togglePlayCycle = (bool) => {
-    console.log("trying to make the player ingamecycle == " + bool);
     channel.push("toggle-play-cycle", {username: username, bool: bool});
   };
 
