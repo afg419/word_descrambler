@@ -17,8 +17,8 @@ var Authorize = React.createClass({
       data: {username: username, password: password},
       success: (user) => {
         if(user){
-          this.props.setMainState({user: user, pageView: 1, message: "Created account and logged in as "+ username});
-          console.log("Created account and logged in as "+ username);
+          this.props.setMainState({message: "Created account and logged in as "+ username});
+          this.props.getUserInfo();
         } else
           this.props.setMainState({message: "Username already taken or password not long enough"});
         }
@@ -36,7 +36,8 @@ var Authorize = React.createClass({
       data: {username: username, password: password},
       success: (user) => {
         if(user){
-          this.props.setMainState({user: user, pageView: 1, message: "Logged in as " + username});
+          this.props.setMainState({message: "Logged in as " + username});
+          this.props.getUserInfo();
         } else {
           this.props.setMainState({message: "Make a new account for " + username + " first!"});
         }

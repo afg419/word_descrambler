@@ -9,6 +9,10 @@ var GameCycle = React.createClass({
     return {enteredWords: []};
   },
 
+  componentDidMount(){
+    this.props.updater.togglePlayCycle(true);
+  },
+
   componentWillReceiveProps(nextProps){
     if(this.inGame() && !this.inGame(nextProps.counter)){
       this.endGame();
@@ -45,7 +49,8 @@ var GameCycle = React.createClass({
     } else {
       return (<Lobby counter={this.props.counter}
                         user={this.props.user}
-                setMainState={this.props.setMainState} />);
+                setMainState={this.props.setMainState}
+                inCyclePlayers={this.props.inCyclePlayers} />);
     }
   },
 
@@ -56,6 +61,7 @@ var GameCycle = React.createClass({
   render(){
     return(
       <div className="center">
+        <h3>{this.props.user.username}</h3>
         {this.gameOrLobby()}
         <button onClick={this.quitGame}>Quit</button>
       </div>

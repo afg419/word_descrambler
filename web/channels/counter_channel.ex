@@ -1,12 +1,11 @@
 require IEx
-
 defmodule WordScram.CounterChannel do
   use Phoenix.Channel
   alias WordScram.Counter
   alias WordScram.Repo
   alias WordScram.User
 
-  def join("the_counter", _message, socket) do
+  def join("the_counter", _msg, socket) do
     {:ok, socket}
   end
 
@@ -14,28 +13,37 @@ defmodule WordScram.CounterChannel do
     user = Repo.get_by(User, username: username)
     {:ok, user} = User.played_game(user, data["score"])
 
-    broadcast!(socket, "update-user-data", User.to_json(user))
+    push(socket, "update-user-data", User.to_json(user))
+
+    users = User.all_in_play_cycle
+            |> Enum.map(fn user -> User.to_json(user) end)
+
+    broadcast!(socket, "toggled-play-cycle", %{users: users})
+
     {:noreply, socket}
   end
 
-  # def handle_in("timer", _params, socket) do
-  #   counter = Repo.get!(Counter, 1)
-  #   new_value = counter.main + 1
-  #
-  #   changeset = Counter.changeset(counter, %{main: new_value})
-  #
-  #   case Repo.update(changeset) do
-  #   {:error, changeset} ->
-  #     broadcast! socket, "timer", %{body: false}
-  #   changeset ->
-  #     broadcast! socket, "timer", %{body: new_value}
-  #   end
-  #
-  #   {:noreply, socket}
-  # end
+  def handle_in("toggle-play-cycle", %{"username" => username, "bool" => bool}, socket) do
+    socket = assign(socket, :current_username, username)
+    Repo.get_by(User, username: username)
+      |> User.toggle_play_cycle(bool)
 
-  # def handle_out("count_up", payload, socket) do
-  #   push socket, "new_msg", payload
-  #   {:noreply, socket}
-  # end
+    users = User.all_in_play_cycle
+            |> Enum.map(fn user -> User.to_json(user) end)
+
+    broadcast!(socket, "toggled-play-cycle", %{users: users})
+    {:noreply, socket}
+  end
+
+  def terminate(reason, socket) do
+    IO.puts("TERMINATED")
+    {:ok, user} = Repo.get_by(User, username: socket.assigns.current_username)
+            |> User.toggle_play_cycle(false)
+
+    users = User.all_in_play_cycle
+            |> Enum.map(fn user -> User.to_json(user) end)
+
+    broadcast!(socket, "toggled-play-cycle", %{users: users})
+    :ok
+  end
 end

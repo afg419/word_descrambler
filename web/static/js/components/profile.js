@@ -11,10 +11,17 @@ var Profile = React.createClass({
       type: 'DELETE',
       success: (reply) => {
         if(reply){
-          this.props.setMainState({pageView: 0, message: "Logged out"});
+          this.props.setMainState({pageView: 0,
+                                    message: "Logged out",
+                                       user: {},
+                                    updater: undefined});
         }
       }
     });
+  },
+
+  componentDidMount(){
+    this.props.updater.togglePlayCycle(false);
   },
 
   joinGame(){
@@ -32,7 +39,7 @@ var Profile = React.createClass({
           <div className="vertical-spacer">
           </div>
 
-        <GameProfile user={this.props.user}/>
+        <GameProfile counter={this.props.counter} user={this.props.user} inCyclePlayers={this.props.inCyclePlayers}/>
           <div className="vertical-spacer">
           </div>
 

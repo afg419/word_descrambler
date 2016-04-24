@@ -13,12 +13,8 @@ defmodule WordScram do
 
     unless Mix.env == :test do
       children = [
-        # Start the endpoint when the application starts
         supervisor(WordScram.Endpoint, []),
-        # Start the Ecto repository
         supervisor(WordScram.Repo, []),
-        # Here you could define other workers and supervisors as children
-        # worker(WordScram.Worker, [arg1, arg2, arg3]),
         worker(WordScram.CounterIncrementer, []),
       ]
     end

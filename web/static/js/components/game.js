@@ -46,8 +46,6 @@ var Game = React.createClass({
 
 
   render(){
-
-
     return(
       <div className="center">
         <div className="container">
