@@ -15,7 +15,7 @@ defmodule WordScram do
       children = [
         supervisor(WordScram.Endpoint, []),
         supervisor(WordScram.Repo, []),
-        # worker(WordScram.CounterIncrementer, []),
+        worker(WordScram.CounterIncrementer, []),
       ]
     end
 

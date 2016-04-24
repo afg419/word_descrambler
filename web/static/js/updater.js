@@ -10,14 +10,6 @@ export default function updater(renderIncrement, username, updateUserData, updat
     .receive("ok", resp => { console.log("Joined successfully get ready to increment some counters", resp); })
     .receive("error", resp => { console.log("Unable to join you are missing out on a world of fun", resp); });
 
-  // socket.on('disconnect', () => togglePlayCycle(false));
-
-
-  // socket.onClose(event => {
-  //   console.log('Channel closed.');
-  //   togglePlayCycle(false);
-  // });
-
   channel.onClose(event => {
     console.log('Channel closed.');
     togglePlayCycle(false);
@@ -48,6 +40,7 @@ export default function updater(renderIncrement, username, updateUserData, updat
   const close = () => socket.disconnect();
 
   const send = (data) => {
+    console.log("FINISHING THE GAME");
     channel.push("finished-game-data", {username: username, data: data});
   };
 

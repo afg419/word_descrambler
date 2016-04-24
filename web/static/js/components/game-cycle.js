@@ -35,9 +35,7 @@ var GameCycle = React.createClass({
   },
 
   endGame(){
-    debugger
     this.props.updater.send({score: this.state.enteredWords.length});
-    this.props.updater.togglePlayCycle(true);
   },
 
   gameOrLobby(){

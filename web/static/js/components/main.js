@@ -25,14 +25,11 @@ var Main = React.createClass({
 
   updateUserData(reply){
     this.setState({user: reply}, () => {
-      console.log("Checkout my new user");
     });
   },
 
   updateInCyclePlayers(reply){
     this.setState({inCyclePlayers: reply}, ()=>{
-      console.log("Checkout my new in cyclers!");
-      console.log(this.state.inCyclePlayers);
     });
   },
 
