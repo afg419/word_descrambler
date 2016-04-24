@@ -5,7 +5,9 @@ defmodule WordScram.CounterChannel do
   alias WordScram.Repo
   alias WordScram.User
 
-  def join("the_counter", _msg, socket) do
+  def join("the_counter", %{"username" => username}, socket) do
+    socket = assign(socket, :current_username, username)
+    IEx.pry
     {:ok, socket}
   end
 
@@ -17,33 +19,35 @@ defmodule WordScram.CounterChannel do
 
     users = User.all_in_play_cycle
             |> Enum.map(fn user -> User.to_json(user) end)
-
     broadcast!(socket, "toggled-play-cycle", %{users: users})
 
     {:noreply, socket}
   end
 
   def handle_in("toggle-play-cycle", %{"username" => username, "bool" => bool}, socket) do
-    socket = assign(socket, :current_username, username)
     Repo.get_by(User, username: username)
       |> User.toggle_play_cycle(bool)
 
     users = User.all_in_play_cycle
             |> Enum.map(fn user -> User.to_json(user) end)
-
     broadcast!(socket, "toggled-play-cycle", %{users: users})
+
     {:noreply, socket}
   end
 
   def terminate(reason, socket) do
     IO.puts("TERMINATED")
-    {:ok, user} = Repo.get_by(User, username: socket.assigns.current_username)
-            |> User.toggle_play_cycle(false)
+    {:ok, user} = current_user(socket)
+                  |> User.toggle_play_cycle(false)
 
     users = User.all_in_play_cycle
             |> Enum.map(fn user -> User.to_json(user) end)
-
     broadcast!(socket, "toggled-play-cycle", %{users: users})
+
     :ok
+  end
+
+  def current_user(socket) do
+    Repo.get_by(User, username: socket.assigns.current_username)
   end
 end
