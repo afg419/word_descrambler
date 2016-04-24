@@ -29,7 +29,7 @@ var Main = React.createClass({
   },
 
   updateInCyclePlayers(reply){
-    this.setState({inCyclePlayers: reply}, ()=>{
+    this.setState({ inCyclePlayers: reply }, () => {
     });
   },
 
@@ -48,13 +48,15 @@ var Main = React.createClass({
       success: (user) => {
         if(user){
           this.setMainState(
-           {user: user,
-            message: user.username,
-            pageView: 1,
-            updater: updater(this.renderIncrement,
-                                    user.username,
-                              this.updateUserData,
-                        this.updateInCyclePlayers)}
+             {
+                user: user,
+                message: user.username,
+                pageView: 1,
+                updater: updater(this.renderIncrement,
+                                        user.username,
+                                  this.updateUserData,
+                            this.updateInCyclePlayers)
+              }
           );
         } else
           this.setState({message: ""});

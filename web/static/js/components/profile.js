@@ -5,6 +5,18 @@ import UserStats from "./user-stats";
 import GameProfile from "./game-profile";
 
 var Profile = React.createClass({
+  componentDidMount(){
+    this.props.updater.togglePlayCycle(false);
+  },
+
+  joinGame(){
+    this.props.setMainState({ pageView: 2 });
+  },
+
+  inGame(){
+    return(this.props.counter.active_game);
+  },
+
   logoutExisting(){
     $.ajax({
       url: '/api/v1/sessions',
@@ -18,18 +30,6 @@ var Profile = React.createClass({
         }
       }
     });
-  },
-
-  componentDidMount(){
-    this.props.updater.togglePlayCycle(false);
-  },
-
-  joinGame(){
-    this.props.setMainState({ pageView: 2 });
-  },
-
-  inGame(){
-    return(this.props.counter.active_game);
   },
 
   render(){

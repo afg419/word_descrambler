@@ -7,17 +7,11 @@ export default function updater(renderIncrement, username, updateUserData, updat
   let channel = socket.channel("the_counter", {username: username});
 
   channel.join()
-    .receive("ok", resp => { console.log("Joined successfully get ready to increment some counters", resp); })
+    .receive("ok", resp => { console.log("Joined successfully as " + username + " get ready to increment some counters", resp); })
     .receive("error", resp => { console.log("Unable to join you are missing out on a world of fun", resp); });
 
   channel.onClose(event => {
     console.log('Channel closed.');
-    togglePlayCycle(false);
-  });
-
-  channel.on("count_up", payload => {
-    renderIncrement(payload.body);
-    console.log("Increment message received");
   });
 
   channel.on("timer", payload => {
@@ -31,7 +25,7 @@ export default function updater(renderIncrement, username, updateUserData, updat
     updateUserData(payload);
   });
 
-  channel.on("toggled-play-cycle", payload => {
+  channel.on("update-in-cycle-players", payload => {
     console.log("In updating cyclers");
     console.log(payload);
     updateInCyclePlayers(payload);
