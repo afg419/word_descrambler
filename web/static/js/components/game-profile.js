@@ -21,10 +21,6 @@ var GameProfile = React.createClass({
   },
 
   timeRemaining(){
-    console.log(this.props.counter.active_game);
-    console.log(this.props.counter.game_end_time);
-    console.log(this.props.counter.lobby_end_time);
-    console.log(this.props.counter.main);
     var time;
     if(this.props.counter.active_game){
       time = "end of current game: " + (this.props.counter.game_end_time - this.props.counter.main);

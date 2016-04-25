@@ -17,7 +17,6 @@ var Game = React.createClass({
 
   checkWord(event){
     if(event.keyCode == 13){
-      debugger;
       var inputString = (this.refs.wordInput.value);
       var inputObj = this.state.gh.createLettersObject(inputString.split(""));
 
@@ -55,7 +54,7 @@ var Game = React.createClass({
           <input ref="wordInput" spellCheck="true" className="word-input" onKeyDown={this.checkWord} placeholder=" Type words using the letters above"/>
           <div className="vertical-spacer"></div>
           <div className="game-state">
-            <div>Time remaining: {this.props.counter.main}</div>
+            <div>Time remaining: {this.props.counter.game_end_time - this.props.counter.main}</div>
             <div className="container word-results">{this.formattedEnteredWords()}</div>
           </div>
         </div>
