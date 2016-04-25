@@ -12,8 +12,10 @@ var DoubleButtons = React.createClass({
     }
 
     return(
-      <div className="center">
+      <div className="center double-button">
         <button onClick={button1.action}>{button1.text}</button>
+        <div className="horizontal-spacer">
+        </div>
         <button className={disable} disabled={disable} onClick={button2.action}>{button2.text}</button>
       </div>
     );

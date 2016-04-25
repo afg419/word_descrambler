@@ -17,16 +17,18 @@ var Game = React.createClass({
 
   checkWord(event){
     if(event.keyCode == 13){
+      debugger;
       var inputString = (this.refs.wordInput.value);
       var inputObj = this.state.gh.createLettersObject(inputString.split(""));
 
       if(!this.state.gh.compareLetterObjects(inputObj, this.state.letterObject)){
         this.props.setMainState({message: "You can only use the letters above!"});
-      } else if (!this.state.gh.isWord(inputString)){
+      } else if (!true){
         this.props.setMainState({message: "That doesn't look like a word..."});
       } else if (this.state.gh.isRepeat(inputString, this.props.enteredWords)) {
         this.props.setMainState({message: "Only once per word please"});
       } else {
+        this.refs.wordInput.value = "";
         this.props.addEnteredWord(inputString);
       }
     }
@@ -50,7 +52,7 @@ var Game = React.createClass({
       <div className="center">
         <div className="container">
           <div className="container letter-box">{this.formattedLetters()}</div>
-          <input ref="wordInput" className="word-input" onKeyDown={this.checkWord} placeholder=" Type words using the letters above"/>
+          <input ref="wordInput" spellCheck="true" className="word-input" onKeyDown={this.checkWord} placeholder=" Type words using the letters above"/>
           <div className="vertical-spacer"></div>
           <div className="game-state">
             <div>Time remaining: {this.props.counter.main}</div>

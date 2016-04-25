@@ -7,12 +7,14 @@ defmodule WordScram.Counter do
     field :main, :integer, default: 0
     field :active_game, :boolean, default: false
     field :letters, :string, default: ""
+    field :game_end_time, :integer, default: 30
+    field :lobby_end_time, :integer, default: 15
 
     timestamps
   end
 
   @required_fields ~w(main active_game)
-  @optional_fields ~w(letters)
+  @optional_fields ~w(letters game_end_time lobby_end_time)
 
   def changeset(model, params \\ :empty) do
     model
@@ -34,9 +36,13 @@ defmodule WordScram.Counter do
   end
 
   def to_json(counter) do
-    %{         main: counter.main,
-        active_game: counter.active_game,
-            letters: processed_letters(counter)}
+    %{
+                 main: counter.main,
+          active_game: counter.active_game,
+              letters: processed_letters(counter),
+        game_end_time: counter.game_end_time,
+       lobby_end_time: counter.lobby_end_time
+    }
   end
 
   def increment(counter) do
@@ -46,8 +52,8 @@ defmodule WordScram.Counter do
 
   def timer(counter) do
     case counter.active_game do
-      true -> 9
-      false -> 3
+      true -> (counter.game_end_time - 1)
+      false -> (counter.lobby_end_time - 1)
     end
   end
 end
