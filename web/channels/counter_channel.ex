@@ -30,8 +30,6 @@ defmodule WordScram.CounterChannel do
   end
 
   def terminate(reason, socket) do
-    IO.puts("TERMINATED")
-
     current_user(socket)
       |> User.toggle_play_cycle(false)
 
@@ -45,8 +43,6 @@ defmodule WordScram.CounterChannel do
   end
 
   def update_in_cycle_players(socket) do
-    IO.puts("ATTEMPTING TO UPDATE PLAYERs IN CYCLE")
-
     users = User.all_in_play_cycle
             |> Enum.map(fn user -> User.to_json(user) end)
     broadcast!(socket, "update-in-cycle-players", %{users: users})

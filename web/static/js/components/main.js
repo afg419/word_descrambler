@@ -12,7 +12,7 @@ var Main = React.createClass({
     return {
             user: {},
             pageView: 0,
-            message: "HEY",
+            message: "",
             counter: {},
             updater: undefined,
             inCyclePlayers: []
@@ -29,7 +29,7 @@ var Main = React.createClass({
   },
 
   updateInCyclePlayers(reply){
-    this.setState({ inCyclePlayers: reply }, () => {
+    this.setState({ inCyclePlayers: reply, message: "" }, () => {
     });
   },
 
@@ -47,15 +47,16 @@ var Main = React.createClass({
       type: 'GET',
       success: (user) => {
         if(user){
+          var opts = {renderIncrement: this.renderIncrement,
+                       updateUserData: this.updateUserData,
+                 updateInCyclePlayers: this.updateInCyclePlayers,
+                             username: user.username};
+
           this.setMainState(
              {
                 user: user,
-                message: user.username,
                 pageView: 1,
-                updater: updater(this.renderIncrement,
-                                        user.username,
-                                  this.updateUserData,
-                            this.updateInCyclePlayers)
+                updater: updater(opts)
               }
           );
         } else
@@ -87,7 +88,6 @@ var Main = React.createClass({
                 setMainState={this.setMainState} />;
     }
   },
-
 
   render() {
     return (

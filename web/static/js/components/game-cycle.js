@@ -50,7 +50,8 @@ var GameCycle = React.createClass({
       return (<Lobby counter={this.props.counter}
                         user={this.props.user}
                 setMainState={this.props.setMainState}
-                inCyclePlayers={this.props.inCyclePlayers} />);
+              inCyclePlayers={this.props.inCyclePlayers}
+                enteredWords={this.state.enteredWords} />);
     }
   },
 
